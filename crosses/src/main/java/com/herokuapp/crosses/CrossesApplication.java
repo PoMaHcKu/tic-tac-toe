@@ -1,0 +1,13 @@
+package com.herokuapp.crosses;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class CrossesApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(CrossesApplication.class, args);
+    }
+
+}
