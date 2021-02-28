@@ -1,4 +1,4 @@
-package com.herokuapp.crosses.util;
+package com.herokuapp.crosses.utils;
 
 import com.herokuapp.crosses.model.Place;
 

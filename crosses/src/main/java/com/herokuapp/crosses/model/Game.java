@@ -3,11 +3,14 @@ package com.herokuapp.crosses.model;
 import lombok.Data;
 
 @Data
+
 public class Game {
     private final int id;
     private Field field;
     private Gamer cross;
     private Gamer zero;
+    private GameState state = GameState.NEW;
+    private PState lastStep;
 
     public void setCross(Gamer cross) {
         cross.setGame(this);

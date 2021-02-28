@@ -1,19 +1,18 @@
-package com.herokuapp.crosses.mapper.impl;
+package com.herokuapp.crosses.utils.impl;
 
-import com.herokuapp.crosses.mapper.IPrincipalMapper;
+import com.herokuapp.crosses.utils.IPrincipalUtils;
 import com.herokuapp.crosses.model.persist.Role;
 import com.herokuapp.crosses.model.persist.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import java.security.Principal;
-import java.util.Collection;
 import java.util.Iterator;
 
 @Service
-public class PrincipalMapper implements IPrincipalMapper {
+public class PrincipalUtils implements IPrincipalUtils {
     @Override
     public User toUser(Authentication authentication) {
         if (authentication == null) return null;
@@ -24,5 +23,10 @@ public class PrincipalMapper implements IPrincipalMapper {
                 .login(details.getUsername())
                 .role(role)
                 .build();
+    }
+
+    @Override
+    public User getAuthUser() {
+        return toUser(SecurityContextHolder.getContext().getAuthentication());
     }
 }

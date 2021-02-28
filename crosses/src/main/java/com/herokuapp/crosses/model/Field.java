@@ -1,6 +1,6 @@
 package com.herokuapp.crosses.model;
 
-import com.herokuapp.crosses.util.PlaceComparator;
+import com.herokuapp.crosses.utils.PlaceComparator;
 import lombok.Data;
 
 import java.util.Set;

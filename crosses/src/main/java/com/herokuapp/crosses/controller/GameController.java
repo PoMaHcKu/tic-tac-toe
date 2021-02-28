@@ -1,13 +1,10 @@
 package com.herokuapp.crosses.controller;
 
+import com.herokuapp.crosses.model.Coordinates;
 import com.herokuapp.crosses.model.Game;
 import com.herokuapp.crosses.service.IGameService;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.herokuapp.crosses.service.impl.GameService;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -22,18 +19,22 @@ public class GameController {
     }
 
     @GetMapping("new")
-    public Game createNewGame(Authentication authentication) {
-        UserDetails player = (UserDetails) authentication.getPrincipal();
-        return gameService.createGame(authentication);
+    public Game createNewGame() {
+        return gameService.createGame();
     }
 
     @GetMapping("join/{id}")
-    public Game joinGame(@PathVariable int id, Authentication authentication) {
-        return gameService.joinGame(id, authentication);
+    public Game joinGame(@PathVariable int id) {
+        return gameService.joinGame(id);
     }
 
     @GetMapping
     public Map<String, Game> getGames() {
         return gameService.getGames();
+    }
+
+    @PostMapping("step/{gameId}")
+    public GameService.GameResponse doStep(@PathVariable int gameId, @RequestBody Coordinates target) {
+        return gameService.doStep(gameId, target);
     }
 }
