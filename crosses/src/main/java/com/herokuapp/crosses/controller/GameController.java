@@ -6,6 +6,7 @@ import com.herokuapp.crosses.service.IGameService;
 import com.herokuapp.crosses.service.impl.GameService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -30,7 +31,10 @@ public class GameController {
 
     @GetMapping
     public Map<String, Game> getGames() {
-        return gameService.getGames();
+//        return gameService.getGames();
+        return new HashMap<>() {{
+            put("Hello", new Game(10));
+        }};
     }
 
     @PostMapping("step/{gameId}")
