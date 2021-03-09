@@ -2,6 +2,7 @@ import {A} from "hookrouter";
 import * as React from "react";
 import {useContext} from "react";
 import {Context} from "../reducers/store";
+import {signOutAC} from "../constants/actionCreators";
 
 function Nav() {
 
@@ -20,7 +21,7 @@ function Nav() {
                     <A className="nav_item" href="/registration">REGISTRATION</A>
                 </p> :
                 <A className="nav_item" href="/">
-                    <div onClick={() => setState({type: "SIGN_OUT"})}>SIGN OUT</div>
+                    <div onClick={() => setState(signOutAC())}>SIGN OUT</div>
                 </A>
             }
         </div>

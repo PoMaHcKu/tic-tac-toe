@@ -1,12 +1,13 @@
 import React, {useContext} from 'react'
 import {Context} from "../reducers/store";
+import {clearErrorAC} from "../constants/actionCreators";
 
 function ErrorComponent({message}) {
 
     const [state, dispatch] = useContext(Context)
 
     function clearError() {
-        dispatch({type: "CLEAR_ERROR"})
+        dispatch(clearErrorAC())
     }
 
     return (

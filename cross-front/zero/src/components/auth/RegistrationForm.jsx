@@ -4,8 +4,9 @@ import {passwordRestriction, usernameRestriction} from "../../constants/formRest
 import {registration} from "../../dao/loginRequest";
 import ErrorComponent from "../ErrorComponent";
 import {Context} from "../../reducers/store";
+import {setErrorAC} from "../../constants/actionCreators";
 
-function RegistrationForm({error}) {
+function RegistrationForm() {
 
     const {register, handleSubmit, errors} = useForm()
     const [state, dispatch] = useContext(Context)
@@ -13,14 +14,14 @@ function RegistrationForm({error}) {
         if (checkPasswords(user)) {
             registration(user)
                 .then(() => alert("success"))
-                .catch(err => dispatch({type: "SET_ERROR", err: err.response.data.message}))
+                .catch(err => dispatch(setErrorAC(err.response.data.message)))
         }
     }
 
     const checkPasswords = (user) => {
         return user.password === user.password_repeat
-
     }
+
     return state.error ? <ErrorComponent message={state.error}/> :
         <form onSubmit={handleSubmit(onSubmit)}>
             <div>

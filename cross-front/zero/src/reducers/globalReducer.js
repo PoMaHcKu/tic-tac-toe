@@ -1,25 +1,34 @@
+import {
+    CLEAR_ERROR,
+    GET_GAMES,
+    LOGIN,
+    REPLACE_GAME,
+    SET_ERROR,
+    SIGN_OUT
+} from "../constants/actionTypes";
+
 const GlobalReducer = (state, action) => {
     switch (action.type) {
-        case "LOGIN":
+        case LOGIN:
             return {
                 ...state,
                 user: {
                     ...action.user
                 }
             }
-        case "SIGN_OUT":
+        case SIGN_OUT:
             return {
                 ...state,
                 user: {}
             }
-        case "GET_GAMES":
+        case GET_GAMES:
             return {
                 ...state,
                 games: [
                     ...action.payload
                 ]
             }
-        case "REPLACE_GAME":
+        case REPLACE_GAME:
             return {
                 ...state,
                 games: [...this.games.map(game => {
@@ -29,12 +38,12 @@ const GlobalReducer = (state, action) => {
                     return game
                 })]
             }
-        case "SET_ERROR":
+        case SET_ERROR:
             return {
                 ...state,
                 error: action.err
             }
-        case "CLEAR_ERROR":
+        case CLEAR_ERROR:
             return {
                 ...state,
                 error: ''
