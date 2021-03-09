@@ -29,6 +29,16 @@ const GlobalReducer = (state, action) => {
                     return game
                 })]
             }
+        case "SET_ERROR":
+            return {
+                ...state,
+                error: action.err
+            }
+        case "CLEAR_ERROR":
+            return {
+                ...state,
+                error: ''
+            }
         default:
             return state
     }

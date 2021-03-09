@@ -1,16 +1,19 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import {useForm} from "react-hook-form";
 import {passwordRestriction, usernameRestriction} from "../../constants/formRestrictions";
 import {registration} from "../../dao/loginRequest";
+import ErrorComponent from "../ErrorComponent";
+import {Context} from "../../reducers/store";
 
-function RegistrationForm() {
+function RegistrationForm({error}) {
 
     const {register, handleSubmit, errors} = useForm()
+    const [state, dispatch] = useContext(Context)
     const onSubmit = user => {
         if (checkPasswords(user)) {
             registration(user)
                 .then(() => alert("success"))
-                .catch(err => console.log(err.message))
+                .catch(err => dispatch({type: "SET_ERROR", err: err.response.data.message}))
         }
     }
 
@@ -18,7 +21,7 @@ function RegistrationForm() {
         return user.password === user.password_repeat
 
     }
-    return (
+    return state.error ? <ErrorComponent message={state.error}/> :
         <form onSubmit={handleSubmit(onSubmit)}>
             <div>
                 <input className="form_field" type="text" name="login"
@@ -39,7 +42,6 @@ function RegistrationForm() {
                 <input className="form_field form_button" type="submit" value="Sign In"/>
             </div>
         </form>
-    )
 }
 
 export default RegistrationForm
