@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
+import * as React from 'react'
+import {useRoutes} from "hookrouter";
+import Nav from "./components/Nav";
+import Games from "./components/Games";
+import Login from "./components/auth/Login";
+import RegistrationForm from "./components/auth/RegistrationForm";
+
+const routes = {
+    '/': () => <Games/>,
+    '/login': () => <Login/>,
+    '/registration': () => <RegistrationForm/>
+}
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    const myRoutes = useRoutes(routes)
+
+    return (
+        <div className="container">
+            <div className="header">
+                <span className="header_link">CROSSES-ZEROS</span>
+            </div>
+            <div className="content">
+                <Nav/>
+                <div>
+                    {myRoutes}
+                </div>
+            </div>
+            <div className="footer">
+
+            </div>
+        </div>
+    );
 }
 
 export default App;
