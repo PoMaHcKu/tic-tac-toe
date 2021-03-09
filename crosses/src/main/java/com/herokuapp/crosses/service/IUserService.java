@@ -6,7 +6,7 @@ public interface IUserService {
 
     User create(User user);
 
-    String authenticate(User user);
+    User authenticate(User user);
 
     User getByLoginAndPassword(String login, String pass);
 }

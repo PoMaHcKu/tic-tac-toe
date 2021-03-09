@@ -31,10 +31,7 @@ public class GameController {
 
     @GetMapping
     public Map<String, Game> getGames() {
-//        return gameService.getGames();
-        return new HashMap<>() {{
-            put("Hello", new Game(10));
-        }};
+        return gameService.getGames();
     }
 
     @PostMapping("step/{gameId}")

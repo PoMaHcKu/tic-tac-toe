@@ -1,16 +1,11 @@
 package com.herokuapp.crosses.model.persist;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
 
@@ -21,6 +16,8 @@ import java.util.List;
 public class User extends PersistEntity implements UserDetails {
     private String login;
     private String password;
+    @Transient
+    private String token;
 
     @Enumerated(EnumType.ORDINAL)
     private Role role;
@@ -31,9 +28,6 @@ public class User extends PersistEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-
-        GrantedAuthority grantedAuthority = () -> "null";
-
         return List.of((GrantedAuthority) () -> role.toString());
     }
 

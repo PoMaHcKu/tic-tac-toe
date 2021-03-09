@@ -34,10 +34,11 @@ public class UserService implements IUserService, UserDetailsService {
     }
 
     @Override
-    public String authenticate(User user) {
+    public User authenticate(User user) {
         User credentials = getByLoginAndPassword(user.getLogin(), user.getPassword());
         if (credentials != null) {
-            return provider.generateToken(credentials.getLogin());
+            credentials.setToken(provider.generateToken(credentials.getLogin()));
+            return credentials;
         }
         throw new AuthenticationCredentialsNotFoundException("Login or password is not true");
     }
@@ -45,7 +46,7 @@ public class UserService implements IUserService, UserDetailsService {
     @Override
     public User getByLoginAndPassword(String login, String pass) {
         User user = (User) loadUserByUsername(login);
-        if (passwordEncoder.matches(pass, user.getPassword())) {
+        if (user != null && passwordEncoder.matches(pass, user.getPassword())) {
             return user;
         }
         return null;
