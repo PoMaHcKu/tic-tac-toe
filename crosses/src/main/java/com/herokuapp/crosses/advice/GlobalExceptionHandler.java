@@ -9,6 +9,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.persistence.EntityExistsException;
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -27,5 +29,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = AuthenticationException.class)
     public ResponseEntity<ExceptionApi> handleAuthenticate(AuthenticationCredentialsNotFoundException ex) {
         return new ResponseEntity<>(new ExceptionApi(ex.getMessage()), HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(value = EntityExistsException.class)
+    public ResponseEntity<ExceptionApi> handleAlreadyExistsException(EntityExistsException ex) {
+        return new ResponseEntity<>(new ExceptionApi(ex.getMessage()), HttpStatus.BAD_REQUEST);
     }
 }

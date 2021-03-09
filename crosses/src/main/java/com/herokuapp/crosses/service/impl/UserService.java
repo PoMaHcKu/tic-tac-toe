@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityExistsException;
+
 @Service
 public class UserService implements IUserService, UserDetailsService {
 
@@ -28,6 +30,10 @@ public class UserService implements IUserService, UserDetailsService {
 
     @Override
     public User create(User user) {
+        User byLogin = userRepo.findByLogin(user.getLogin());
+        if (byLogin != null) {
+            throw new EntityExistsException(String.format("Login %s already exists", byLogin.getLogin()));
+        }
         user.setRole(Role.PLAYER);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepo.save(user);
