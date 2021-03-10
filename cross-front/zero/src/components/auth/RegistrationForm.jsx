@@ -4,7 +4,6 @@ import {passwordRestriction, usernameRestriction} from "../../constants/formRest
 import {registration} from "../../dao/loginRequest";
 import ErrorComponent from "../ErrorComponent";
 import {Context} from "../../reducers/store";
-import {setErrorAC} from "../../constants/actionCreators";
 
 function RegistrationForm() {
 

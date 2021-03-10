@@ -1,9 +1,9 @@
-import React, {useContext, useEffect} from 'react'
+import React, {useContext} from 'react'
 import {useForm} from "react-hook-form";
 import {login} from "../../dao/loginRequest";
 import {passwordRestriction, usernameRestriction} from "../../constants/formRestrictions";
 import {Context} from "../../reducers/store";
-import {setErrorAC, setUserAC} from "../../constants/actionCreators";
+import {setUserAC} from "../../constants/actionCreators";
 
 function LoginForm() {
 
