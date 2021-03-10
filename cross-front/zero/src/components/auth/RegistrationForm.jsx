@@ -8,23 +8,17 @@ import {setErrorAC} from "../../constants/actionCreators";
 
 function RegistrationForm() {
 
-    const {register, handleSubmit, watch, formState} = useForm(
+    const {register, handleSubmit, watch, formState, setError} = useForm(
         {
             mode: 'onChange'
         })
-    const [state, dispatch] = useContext(Context)
+    const [state] = useContext(Context)
     const password = useRef({});
     password.current = watch("password", "");
     const onSubmit = user => {
-        // if (checkPasswords(user)) {
         registration(user)
             .then(() => alert("success"))
-            .catch(err => dispatch(setErrorAC(err.response.data.message)))
-        // }
-    }
-
-    const checkPasswords = (user) => {
-        return user.password === user.password_repeat
+            .catch(err => setError("login", {message: err.response.data.message}))
     }
 
     return state.error ? <ErrorComponent message={state.error}/> :
@@ -36,7 +30,7 @@ function RegistrationForm() {
                        placeholder="username"/>
                 <div className="not_validate_field_form">
                     {formState.errors.login &&
-                    <span>Must be more characters</span>}
+                    <span>{formState.errors.login.message || "Must be more characters"}</span>}
                 </div>
             </div>
             <div className="form_field_block">
@@ -65,7 +59,7 @@ function RegistrationForm() {
                 <input className="form_field form_button"
                        disabled={!formState.isValid}
                        type="submit"
-                       value="Sign In"/>
+                       value="Sign Up"/>
             </div>
         </form>
 }

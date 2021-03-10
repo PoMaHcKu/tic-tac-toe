@@ -7,11 +7,14 @@ import {setErrorAC, setUserAC} from "../../constants/actionCreators";
 
 function LoginForm() {
 
-    const {register, handleSubmit, formState} = useForm({mode: "onChange"})
+    const {register, handleSubmit, formState, setError} = useForm({mode: "onChange"})
     const [state, dispatch] = useContext(Context)
     const onSubmit = data => login(data)
         .then(resp => dispatch(setUserAC({...resp})))
-        .catch(err => setErrorAC(err.response.data.message))
+        .catch(err => {
+            setError("login", {message: err.response.data.message})
+            setError("password", {message: err.response.data.message})
+        })
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -22,7 +25,7 @@ function LoginForm() {
                        placeholder="username"/>
                 <div className="not_validate_field_form">
                     {formState.errors.login &&
-                    <span>Must be more characters</span>}
+                    <span>{formState.errors.login.message || "Must be more characters"}</span>}
                 </div>
             </div>
             <div className="form_field_block">
@@ -31,8 +34,8 @@ function LoginForm() {
                        ref={register(passwordRestriction)}
                        placeholder="password"/>
                 <div className="not_validate_field_form">
-                    {formState.errors.password &&
-                    <span>Password must be as least 8 chars</span>}
+                    {formState.errors.login &&
+                    <span>{formState.errors.login.message || "Password must be as least 8 chars"}</span>}
                 </div>
             </div>
             <div>
