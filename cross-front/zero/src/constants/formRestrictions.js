@@ -1,11 +1,11 @@
 export const usernameRestriction = {
     required: true,
-    minLength: 1,
+    minLength: 3,
     maxLength: 15
 }
 
 export const passwordRestriction = {
     required: true,
-    minLength: 1,
+    minLength: 4,
     maxLength: 20
 }

@@ -9,7 +9,7 @@ function Games() {
 
     return (
         <div>
-            {games}
+            {/*{games}*/}
         </div>
     )
 }

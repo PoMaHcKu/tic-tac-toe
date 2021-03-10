@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext, useEffect} from 'react'
 import {useForm} from "react-hook-form";
 import {login} from "../../dao/loginRequest";
 import {passwordRestriction, usernameRestriction} from "../../constants/formRestrictions";
@@ -7,7 +7,7 @@ import {setErrorAC, setUserAC} from "../../constants/actionCreators";
 
 function LoginForm() {
 
-    const {register, handleSubmit, errors} = useForm()
+    const {register, handleSubmit, formState} = useForm({mode: "onChange"})
     const [state, dispatch] = useContext(Context)
     const onSubmit = data => login(data)
         .then(resp => dispatch(setUserAC({...resp})))
@@ -15,17 +15,26 @@ function LoginForm() {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <div>
+            <div className="form_field_block">
+                <label className="form_label" htmlFor="login">Login</label>
                 <input className="form_field" type="text" name="login"
                        ref={register(usernameRestriction)}
                        placeholder="username"/>
+                <div className="not_validate_field_form">
+                    {formState.errors.login &&
+                    <span>Must be more characters</span>}
+                </div>
             </div>
-            <div>
+            <div className="form_field_block">
+                <label className="form_label" htmlFor="password">Password</label>
                 <input className="form_field" type="password" name="password"
                        ref={register(passwordRestriction)}
                        placeholder="password"/>
+                <div className="not_validate_field_form">
+                    {formState.errors.password &&
+                    <span>Password must be as least 8 chars</span>}
+                </div>
             </div>
-            {errors.exampleRequired && <span>This field is required</span>}
             <div>
                 <input className="form_field form_button" type="submit" value="Sign In"/>
             </div>
