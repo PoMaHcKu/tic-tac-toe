@@ -6,11 +6,12 @@ import com.herokuapp.crosses.service.IGameService;
 import com.herokuapp.crosses.service.impl.GameService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.Map;
 
+import static com.herokuapp.crosses.WebConstants.*;
+
 @RestController
-@RequestMapping("game")
+@RequestMapping(GAME_ENDPOINT)
 public class GameController {
 
     private final IGameService gameService;
@@ -19,12 +20,12 @@ public class GameController {
         this.gameService = gameService;
     }
 
-    @GetMapping("new")
+    @GetMapping(NEW_ENDPOINT)
     public Game createNewGame() {
         return gameService.createGame();
     }
 
-    @GetMapping("join/{id}")
+    @GetMapping(JOIN_ENDPOINT + SEPARATOR + "{id}")
     public Game joinGame(@PathVariable int id) {
         return gameService.joinGame(id);
     }
@@ -34,7 +35,7 @@ public class GameController {
         return gameService.getGames();
     }
 
-    @PostMapping("step/{gameId}")
+    @PostMapping(STEP_ENDPOINT + SEPARATOR + "{gameId}")
     public GameService.GameResponse doStep(@PathVariable int gameId, @RequestBody Coordinates target) {
         return gameService.doStep(gameId, target);
     }
