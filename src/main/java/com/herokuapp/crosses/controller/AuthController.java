@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.herokuapp.crosses.WebConstants.LOGIN_ENDPOINT;
+import static com.herokuapp.crosses.WebConstants.REGISTER_ENDPOINT;
+
 @RestController
 public class AuthController {
 
@@ -15,13 +18,13 @@ public class AuthController {
         this.userService = userService;
     }
 
-    @PostMapping("register")
+    @PostMapping(REGISTER_ENDPOINT)
     public User register(@RequestBody User user) {
         return userService.create(user);
     }
 
 
-    @PostMapping("login")
+    @PostMapping(LOGIN_ENDPOINT)
     public User signIn(@RequestBody User user) {
        return userService.authenticate(user);
     }
